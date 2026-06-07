@@ -32,6 +32,10 @@ form {
     height: 2rem;
     font-size: 1.5rem;
 }
+#spanForButton {
+    display: flex;
+    justify-content: space-between;
+}
 
 /* ====== tabulka seznam úkolů */
 #tableOfTask{

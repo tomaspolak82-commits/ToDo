@@ -21,7 +21,8 @@
                     <option value="middlePriority">🟡 Střední</option>
                     <option value="highPriority">🔴 Vysoká</option>
                 </select></span>
-                <button id="newTaskInForm">Vytvořit úkol</button>
+                <span id="spanForButton"><button id="newTaskInForm">Vytvořit úkol</button><button id="closeNewTask">Zavřít okno</button></span>
+                
             </form>
         </div>
     </div>
@@ -30,7 +31,7 @@
     <h2>Seznam úkolů</h2>
     <table id="tableOfTask">
         <tr>
-            <th>Počet úkolů</th>
+            <th></th>
             <th>Název úkolu</th>
             <th>Důležitost</th>
             <th>Hotovo</th>
@@ -61,7 +62,7 @@
 
     <button id="delAllTask">Smazat všechny hotové úkoly</button>
 
-
+    <script src="functions.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
