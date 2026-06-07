@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>ToDo list</h1>
+    <!-- VYTVOŘIT NOVÝ ÚKOL - MODAL S VYSKAKOVACÍM OKNEM -->
+    <button id="newTask">Vytvoř nový úkol</button>
+
+    <div id="overlay" class="invisible">
+        <div id="modalNewTask" class="visible">
+            <form id="TaskForm">
+                <span>Název úkolu: <input type="text" name="inp_nameTask" id="nameTask"></span>
+                <span>Priorita:                
+                <select name="sel_importance" id="importance" >
+                    <option value="lowPriority"> 🟢 Nízká</option>
+                    <option value="middlePriority">🟡 Střední</option>
+                    <option value="highPriority">🔴 Vysoká</option>
+                </select></span>
+                <button id="newTaskInForm">Vytvořit úkol</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SEZNAM ÚKOLŮ-->
+    <h2>Seznam úkolů</h2>
+    <table id="tableOfTask">
+        <tr>
+            <th>Počet úkolů</th>
+            <th>Název úkolu</th>
+            <th>Důležitost</th>
+            <th>Hotovo</th>
+            <th></th>
+        </tr>
+         <tr>
+            <td>1</td>
+            <td>Vynést koš</td>
+            <td>důležité</td>
+            <td><input type="checkbox"id="done"></td>
+            <td><button id="del">smazat</button></td>
+            
+        </tr>
+    </table>
+
+    <!-- HOTOVÉ ÚKOLY-->
+    <h2>Zobrazit hotové úkoly</h2>
+    <table id="tableOfDoneTask">
+        <tr>
+            <td>1</td>
+            <td>Vynést koš</td>
+            <td>důležité</td>
+            <td><input type="checkbox"id="done"></td>
+            <td><button id="del">smazat</button></td>
+            
+        </tr>
+    </table>
+
+    <button id="delAllTask">Smazat všechny hotové úkoly</button>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+
+/* ==== nový úkol, div overlay a modal */
+.visible {
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.invisible {
+    display: none;
+}
+#overlay {
+    background-color: #000000c5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+#modalNewTask {
+    background-color: #ffff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    
+}
+#TaskForm span, #TaskForm input, #TaskForm button, #TaskForm select {
+    height: 2rem;
+    font-size: 1.5rem;
+}
+
+/* ====== tabulka seznam úkolů */
+#tableOfTask{
+    border-collapse: collapse; 
+
+}
+#tableOfTask td, #tableOfTask th {
+    border: 2px rgb(114, 171, 250) solid;
+    padding: 0.2rem 0.7rem
+
+}
+
+/* ==== tabulka Hotové úkoly ==== */
+#tableOfDoneTask {
+    border-collapse: collapse;
+}
+#tableOfDoneTask td, th {
+    border: 2px rgb(63, 165, 60) solid;
+    padding: 0.2rem 0.7rem
+
+}
+
