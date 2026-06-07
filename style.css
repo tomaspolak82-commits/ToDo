@@ -19,6 +19,8 @@
 }
 #modalNewTask {
     background-color: #ffff;
+    border: 5px rgb(161, 158, 158) solid;
+    border-radius: 10px;
 }
 
 form {
@@ -35,7 +37,12 @@ form {
 #spanForButton {
     display: flex;
     justify-content: space-between;
+    
 }
+#spanImportance {
+    display: flex;
+    justify-content: space-around;
+}   
 
 /* ====== tabulka seznam úkolů */
 #tableOfTask{
