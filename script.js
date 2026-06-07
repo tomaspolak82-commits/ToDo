@@ -7,14 +7,21 @@
     const closeWinOfForm = document.querySelector("#closeNewTask") // tlačítko pro zavření okna ve formuláři
     const modalWindows = document.querySelector("#modalNewTask")  // samotné vyskakovací okno - formulář bez pozadí
     let tableTask = document.querySelector("#tableOfTask") // tabulka seznam úkolů
-    
+        
 
     let tasks = [] // prázdné pole pro přidávání úkolů
 
     
     btnNewTask.addEventListener("click", function (event) {
         changeClass(overlay,"invisible","visible")  //obecná funkce ("zavření") - proměnná, odebraný styl, přidaný styl
+        document.querySelector("#nameTask").value = ""  // vymazání vyplněného pole název úkolu
+        
     } )
+    
+    closeWinOfForm.addEventListener("click", (event) => {
+        event.preventDefault()
+        document.querySelector("#nameTask").value = "" // vymazání vyplněného pole název úkolu
+    })
 
 
     modalWindows.addEventListener("click", function(event){
@@ -25,6 +32,11 @@
     // == kliknutí na tlačítko vytvořit úkol ve formuláři ===
     TaskForm.addEventListener ("submit", function(event) { 
         event.preventDefault()
+
+        let newTr = document.createElement("tr")
+        newTr.innerHTML = ""
+        document.querySelector("#tableOfTask").appendChild(newTr)
+
         
         // přidání úkolu do pole objektu
         tasks.push ({
@@ -32,7 +44,34 @@
             importance: event.target[1].value  // priorita
         })
 
+        console.log (tasks)
+
         // vypsání do tabulky Seznam úkolů - "tableOfTask"
+        for (let i = 1; i<= tasks.length; i++){
+                
+
+            
+            newTr.innerHTML = `<td>${i}</td><td>${tasks[i-1].name}</td><td>${tasks[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`
+            
+
+
+            }
+        
+        
+
+            
+        
+        
+         
+  
+        
+
+        
+
+        
+
+
+        
 
 
 
@@ -41,7 +80,8 @@
 
 
 
-       
+
+        event.target[0].value = ""
         
         changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce
     })
@@ -79,4 +119,9 @@
     //     importance: "hodně důležité"
     // })
     // console.log (tasks)
+    // console.log (tasks[0])
+    // console.log (tasks[0].name)
+    // console.log (tasks[0].importance)
+
+
     
