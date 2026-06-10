@@ -49,10 +49,10 @@
         event.preventDefault()
 
         tableTask.innerHTML=""  
-        
-            
-        
-
+        // hlavička tabulky
+        newTr1 ("tr",`<th></th><th>Název úkolu</th><th>Důležitost</th><th>Hotovo</th><th></th>`,"#tableOfTask" )
+                   
+        // přidávání úkolů za stavu LS = null
         if (tasksJS === null) {
             tasksJS = [{
                 name:event.target[0].value,     //název úkolu
@@ -69,7 +69,7 @@
 
             event.target[0].value = ""
 
-
+        // přidávání úkolů pokud v LS něco je
         }else {
             console.log ("není to null")
 
