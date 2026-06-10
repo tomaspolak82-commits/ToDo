@@ -9,6 +9,7 @@
     let tableTask = document.querySelector("#tableOfTask") // tabulka seznam úkolů
         
         let tasksJS = JSON.parse(localStorage.getItem("úkoly"))  //pro načtení úkolů z JS
+
         console.log (tasksJS)
 
         // když nebude nic v LS vypsat žádné úkoly, JINAK vypsat úkoly z LS
@@ -26,7 +27,6 @@
             }
         }
 
-    let tasks = [] // prázdné pole pro přidávání úkolů
     
     btnNewTask.addEventListener("click", function (event) {
         changeClass(overlay,"invisible","visible")  //obecná funkce ("zavření") - proměnná, odebraný styl, přidaný styl
@@ -50,18 +50,28 @@
 
         tableTask.innerHTML=""  
         
-        // přidání úkolu do pole objektu
-
-        //smazat?
-        // tasks.push ({
-        //     name:event.target[0].value,     //název úkolu
-        //     importance: event.target[1].value  // priorita
-        // })
-
-        // console.log (tasks)
-           
             
+        
+
+        if (tasksJS === null) {
+            tasksJS = [{
+                name:event.target[0].value,     //název úkolu
+                importance: event.target[1].value  // priorita
+            }]
+            console.log("je to null")
             console.log (tasksJS)
+
+            // vypsání do tabulky Seznam úkolů - "tableOfTask"
+            for (let i = 1; i<= tasksJS.length; i++){
+
+                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`,"#tableOfTask")
+            }
+
+            event.target[0].value = ""
+
+
+        }else {
+            console.log ("není to null")
 
             tasksJS.push (({    // přidání nového objektu do pole 
             name:event.target[0].value,     //název úkolu
@@ -69,34 +79,21 @@
             }))
 
             localStorage.setItem("úkoly", JSON.stringify(tasksJS)) // uložení aktualizovaného pole do LS 
-            
-            
 
-        // vypsání do tabulky Seznam úkolů - "tableOfTask"
-        for (let i = 1; i<= tasksJS.length; i++){
+            // vypsání do tabulky Seznam úkolů - "tableOfTask"
+            for (let i = 1; i<= tasksJS.length; i++){
+
+                    newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`,"#tableOfTask")
                 
+                }
 
-                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`,"#tableOfTask")
+
+            event.target[0].value = ""
             
-
-
+            changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce   
             }
-        
-        
 
-        
-
-
-
-
-
-
-
-
-
-        event.target[0].value = ""
-        
-        changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce
+       
     })
 
     // == kliknutí na tlačítko zavřít okno ve formuláři
