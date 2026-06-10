@@ -8,9 +8,25 @@
     const modalWindows = document.querySelector("#modalNewTask")  // samotné vyskakovací okno - formulář bez pozadí
     let tableTask = document.querySelector("#tableOfTask") // tabulka seznam úkolů
         
+        let tasksJS = JSON.parse(localStorage.getItem("úkoly"))  //pro načtení úkolů z JS
+        console.log (tasksJS)
+
+        // když nebude nic v LS vypsat žádné úkoly, JINAK vypsat úkoly z LS
+        if (tasksJS === null) {
+
+            // *** obecná funkce newTr1 - newTr1 (element,innerContain, parent) ***
+            newTr1("tr",`<td></td><td>Žádné úkoly</td><td></td><td></td><td></td>`, "#tableOfTask")
+            
+        } else {
+        
+            for (let i = 1; i<= tasksJS.length; i++){
+
+                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`, "#tableOfTask")
+
+            }
+        }
 
     let tasks = [] // prázdné pole pro přidávání úkolů
-
     
     btnNewTask.addEventListener("click", function (event) {
         changeClass(overlay,"invisible","visible")  //obecná funkce ("zavření") - proměnná, odebraný styl, přidaný styl
@@ -28,48 +44,45 @@
         event.stopPropagation() // zabrání probublávání nahoru => nepřepne styl na overlay
     })
 
-
-    // == kliknutí na tlačítko vytvořit úkol ve formuláři ===
+    // ======= kliknutí na tlačítko vytvořit úkol ve formuláři =======
     TaskForm.addEventListener ("submit", function(event) { 
         event.preventDefault()
 
-        let newTr = document.createElement("tr")
-        newTr.innerHTML = ""
-        document.querySelector("#tableOfTask").appendChild(newTr)
-
+        tableTask.innerHTML=""  
         
         // přidání úkolu do pole objektu
-        tasks.push ({
+
+        //smazat?
+        // tasks.push ({
+        //     name:event.target[0].value,     //název úkolu
+        //     importance: event.target[1].value  // priorita
+        // })
+
+        // console.log (tasks)
+           
+            
+            console.log (tasksJS)
+
+            tasksJS.push (({    // přidání nového objektu do pole 
             name:event.target[0].value,     //název úkolu
             importance: event.target[1].value  // priorita
-        })
+            }))
 
-        console.log (tasks)
+            localStorage.setItem("úkoly", JSON.stringify(tasksJS)) // uložení aktualizovaného pole do LS 
+            
+            
 
         // vypsání do tabulky Seznam úkolů - "tableOfTask"
-        for (let i = 1; i<= tasks.length; i++){
+        for (let i = 1; i<= tasksJS.length; i++){
                 
 
-            
-            newTr.innerHTML = `<td>${i}</td><td>${tasks[i-1].name}</td><td>${tasks[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`
+                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`,"#tableOfTask")
             
 
 
             }
         
         
-
-            
-        
-        
-         
-  
-        
-
-        
-
-        
-
 
         
 
@@ -91,9 +104,6 @@
         event.preventDefault()
         changeClass(overlay, "visible", "invisible")
     })
-
-
-    
 
 
 
@@ -124,4 +134,3 @@
     // console.log (tasks[0].importance)
 
 
-    
