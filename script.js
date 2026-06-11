@@ -19,11 +19,8 @@
             newTr1("tr",`<td></td><td>Žádné úkoly</td><td></td><td></td><td></td>`, "#tableOfTask")
             
         } else {
-        
             for (let i = 1; i<= tasksJS.length; i++){
-
-                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`, "#tableOfTask")
-
+                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
             }
         }
 
@@ -36,9 +33,8 @@
     
     closeWinOfForm.addEventListener("click", (event) => {
         event.preventDefault()
-        document.querySelector("#nameTask").value = "" // vymazání vyplněného pole název úkolu
+        document.querySelector("#nameTask").value = "" // vymazání vyplněného pole název úkolu 
     })
-
 
     modalWindows.addEventListener("click", function(event){
         event.stopPropagation() // zabrání probublávání nahoru => nepřepne styl na overlay
@@ -58,20 +54,17 @@
                 name:event.target[0].value,     //název úkolu
                 importance: event.target[1].value  // priorita
             }]
-            console.log("je to null")
             console.log (tasksJS)
 
             // vypsání do tabulky Seznam úkolů - "tableOfTask"
             for (let i = 1; i<= tasksJS.length; i++){
-
-                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`,"#tableOfTask")
+                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
             }
 
             event.target[0].value = ""
 
         // přidávání úkolů pokud v LS něco je
         }else {
-            console.log ("není to null")
 
             tasksJS.push (({    // přidání nového objektu do pole 
             name:event.target[0].value,     //název úkolu
@@ -82,18 +75,13 @@
 
             // vypsání do tabulky Seznam úkolů - "tableOfTask"
             for (let i = 1; i<= tasksJS.length; i++){
-
-                    newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button>Smazat</button></td>`,"#tableOfTask")
-                
+                    newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
                 }
-
 
             event.target[0].value = ""
             
             changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce   
-            }
-
-       
+        }
     })
 
     // == kliknutí na tlačítko zavřít okno ve formuláři
@@ -102,32 +90,17 @@
         changeClass(overlay, "visible", "invisible")
     })
 
-
-
-
-
     // === zavře overlay při kliknutí mimo formulář
     overlay.addEventListener("click", function (event) {
         changeClass(overlay,"visible","invisible")
     } )
 
-
-    //== test úkoly - pole objektů
-
-    // tasks = [{
-    //     name: "název1",
-    //     importance: "málo důležité"}]
-    //     console.log (tasks)
-    // tasks.push ({
-    //     name: "název2",
-    //     importance: "nedůležité"})
-    // tasks.push ({
-    //     name: "název3",
-    //     importance: "hodně důležité"
-    // })
-    // console.log (tasks)
-    // console.log (tasks[0])
-    // console.log (tasks[0].name)
-    // console.log (tasks[0].importance)
-
-
+// ======= kliknutí na tlačítko smazat v seznamu úkolů =======
+let ListTaskBtnDel = document.querySelectorAll("#del")
+    //pro každé nalezené tlačítko => najdi nejbližší TR a smaž ho
+ListTaskBtnDel.forEach((oneBtn) => {
+    oneBtn.addEventListener("click", (event)=>{
+        event.preventDefault()
+        oneBtn.closest("tr").remove()   // nejbližší TR a smaž ho
+    })
+}    )
