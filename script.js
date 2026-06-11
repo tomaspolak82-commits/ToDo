@@ -1,5 +1,6 @@
 "use Strict";
 //======= Vyskakovací okno overlay ======//
+//========================================
 
     const btnNewTask = document.querySelector("#newTask") // tlačítko pro vytvoření nového úkolu
     const overlay = document.querySelector("#overlay") // celý overlay - včetně pozadí a formuláře
@@ -61,6 +62,9 @@
                 newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
             }
 
+            localStorage.setItem("úkoly", JSON.stringify(tasksJS)) // uložení aktualizovaného pole do LS 
+            changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce
+
             event.target[0].value = ""
 
         // přidávání úkolů pokud v LS něco je
@@ -81,6 +85,7 @@
             event.target[0].value = ""
             
             changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce   
+            console.log (document.querySelectorAll("tr"))
         }
     })
 
@@ -96,7 +101,10 @@
     } )
 
 // ======= kliknutí na tlačítko smazat v seznamu úkolů =======
+//============================================================
+
 let ListTaskBtnDel = document.querySelectorAll("#del")
+console.log (ListTaskBtnDel)
     //pro každé nalezené tlačítko => najdi nejbližší TR a smaž ho
 ListTaskBtnDel.forEach((oneBtn) => {
     oneBtn.addEventListener("click", (event)=>{
@@ -104,3 +112,4 @@ ListTaskBtnDel.forEach((oneBtn) => {
         oneBtn.closest("tr").remove()   // nejbližší TR a smaž ho
     })
 }    )
+
