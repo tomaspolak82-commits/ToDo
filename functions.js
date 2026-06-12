@@ -13,7 +13,6 @@ let newTr1 = (element,innerContain,parent)=>{
 let addElement = document.createElement(element)
 addElement.innerHTML = innerContain
 document.querySelector(parent).appendChild(addElement)
-newTr1.id = Date.now()
 }
 
 

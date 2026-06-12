@@ -1,6 +1,5 @@
 "use Strict";
-//======= Vyskakovací okno overlay ======//
-//========================================
+
 
     const btnNewTask = document.querySelector("#newTask") // tlačítko pro vytvoření nového úkolu
     const overlay = document.querySelector("#overlay") // celý overlay - včetně pozadí a formuláře
@@ -8,22 +7,30 @@
     const closeWinOfForm = document.querySelector("#closeNewTask") // tlačítko pro zavření okna ve formuláři
     const modalWindows = document.querySelector("#modalNewTask")  // samotné vyskakovací okno - formulář bez pozadí
     let tableTask = document.querySelector("#tableOfTask") // tabulka seznam úkolů
+
+    //====== výchozí stav stránky po načtení ======
+    //=============================================
         
-        let tasksJS = JSON.parse(localStorage.getItem("úkoly"))  //pro načtení úkolů z JS
+    let tasksJS = JSON.parse(localStorage.getItem("úkoly"))  //pro načtení úkolů z JS
 
-        console.log (tasksJS)
+    console.log (tasksJS)
 
-        // když nebude nic v LS vypsat žádné úkoly, JINAK vypsat úkoly z LS
-        if (tasksJS === null) {
 
-            // *** obecná funkce newTr1 - newTr1 (element,innerContain, parent) ***
-            newTr1("tr",`<td></td><td>Žádné úkoly</td><td></td><td></td><td></td>`, "#tableOfTask")
-            
-        } else {
-            for (let i = 1; i<= tasksJS.length; i++){
-                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
-            }
+
+    // když nebude nic v LS vypsat žádné úkoly, JINAK vypsat úkoly z LS
+    if (tasksJS === null) {
+
+        // *** obecná funkce newTr1 - newTr1 (element,innerContain, parent) ***
+        newTr1("tr",`<td></td><td>Žádné úkoly</td><td></td><td></td><td></td>`, "#tableOfTask")
+        
+    } else {
+        for (let i = 1; i<= tasksJS.length; i++){
+            newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
         }
+    }
+
+    //======= Vyskakovací okno overlay ======//
+    //========================================
 
     
     btnNewTask.addEventListener("click", function (event) {
@@ -44,7 +51,7 @@
     // ======= kliknutí na tlačítko vytvořit úkol ve formuláři =======
     TaskForm.addEventListener ("submit", function(event) { 
         event.preventDefault()
-
+        console.log (event)
         tableTask.innerHTML=""  
         // hlavička tabulky
         newTr1 ("tr",`<th></th><th>Název úkolu</th><th>Důležitost</th><th>Hotovo</th><th></th>`,"#tableOfTask" )
@@ -53,7 +60,8 @@
         if (tasksJS === null) {
             tasksJS = [{
                 name:event.target[0].value,     //název úkolu
-                importance: event.target[1].value  // priorita
+                importance: event.target[1].value,  // priorita
+                id: Date.now() // id úkolu - aktuální čas
             }]
             console.log (tasksJS)
 
@@ -72,7 +80,8 @@
 
             tasksJS.push (({    // přidání nového objektu do pole 
             name:event.target[0].value,     //název úkolu
-            importance: event.target[1].value  // priorita
+            importance: event.target[1].value,  // priorita
+            id: Date.now() // id úkolu - aktuální čas
             }))
 
             localStorage.setItem("úkoly", JSON.stringify(tasksJS)) // uložení aktualizovaného pole do LS 
@@ -109,7 +118,8 @@ console.log (ListTaskBtnDel)
 ListTaskBtnDel.forEach((oneBtn) => {
     oneBtn.addEventListener("click", (event)=>{
         event.preventDefault()
-        oneBtn.closest("tr").remove()   // nejbližší TR a smaž ho
+        console.log (oneBtn.closest("tr"))
+        // oneBtn.closest("tr").remove()   // nejbližší TR a smaž ho
     })
 }    )
 
