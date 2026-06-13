@@ -21,11 +21,15 @@
     if (tasksJS === null) {
 
         // *** obecná funkce newTr1 - newTr1 (element,innerContain, parent) ***
-        newTr1("tr",`<td></td><td>Žádné úkoly</td><td></td><td></td><td></td>`, "#tableOfTask")
+        // newTr1("tr",`<td></td><td>Žádné úkoly</td><td></td><td></td><td></td>`, "#tableOfTask")
+            newTr1WithID ("tr",`${tasksJS[i-1].id}` ,`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
+
         
     } else {
         for (let i = 1; i<= tasksJS.length; i++){
-            newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
+            // newTr1("tr",`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
+                newTr1WithID ("tr",`${tasksJS[i-1].id}` ,`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
+
         }
     }
 
@@ -67,7 +71,8 @@
 
             // vypsání do tabulky Seznam úkolů - "tableOfTask"
             for (let i = 1; i<= tasksJS.length; i++){
-                newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
+                // newTr1("tr",`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
+                    newTr1WithID ("tr",`${tasksJS[i-1].id}` ,`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
             }
 
             localStorage.setItem("úkoly", JSON.stringify(tasksJS)) // uložení aktualizovaného pole do LS 
@@ -88,13 +93,20 @@
 
             // vypsání do tabulky Seznam úkolů - "tableOfTask"
             for (let i = 1; i<= tasksJS.length; i++){
-                    newTr1("tr",`<td>${i}</td><td>${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
+                    // newTr1("tr",`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`,"#tableOfTask")
+                        newTr1WithID ("tr",`${tasksJS[i-1].id}` ,`<td>${i}</td><td id="nameTask">${tasksJS[i-1].name}</td><td>${tasksJS[i-1].importance}</td><td><input type="checkbox" name="done"></td><td><button id="del">Smazat</button></td>`, "#tableOfTask")
                 }
 
             event.target[0].value = ""
             
             changeClass(overlay,"visible", "invisible") //"zavření" okna - obecná funkce   
             console.log (document.querySelectorAll("tr"))
+
+
+        
+        
+
+
         }
     })
 
@@ -118,8 +130,23 @@ console.log (ListTaskBtnDel)
 ListTaskBtnDel.forEach((oneBtn) => {
     oneBtn.addEventListener("click", (event)=>{
         event.preventDefault()
-        console.log (oneBtn.closest("tr"))
-        // oneBtn.closest("tr").remove()   // nejbližší TR a smaž ho
+
+        let witchTR = oneBtn.closest("tr") // nejbližší TR
+
+       tasksJS = tasksJS.filter( (oneTask) =>  // projde všechny úkoly 
+            
+            oneTask.id !== Number(witchTR.id)  // vrátí vše, kromě toho, který jednoho úkolu (oneTask.id) !==  řádek, ve kterém bylo kliknuto na smazat  (withTr.id)
+            
+    )
+            console.log (tasksJS)
+        
+        localStorage.setItem("úkoly", JSON.stringify(tasksJS)) // uložení aktualizovaného pole do LS 
+
+                        
+
+
+
+        
     })
 }    )
 

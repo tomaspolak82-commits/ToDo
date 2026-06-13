@@ -15,6 +15,15 @@ addElement.innerHTML = innerContain
 document.querySelector(parent).appendChild(addElement)
 }
 
+// ==== vytvoření řádku v tabulce newTr s ID ("tr", id, zadny ukol, "#table")
+let newTr1WithID = (element,id,innerContain,parent)=>{
+let addElement = document.createElement(element)
+addElement.id = id
+addElement.innerHTML = innerContain
+document.querySelector(parent).appendChild(addElement)
+}
+
+
 
 
 
